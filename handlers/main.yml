@@ -1,0 +1,7 @@
+---
+# prometheus_alertmanager/handlers/main.yml
+
+- name: 'Restart the Alertmanager service'
+  ansible.builtin.service:
+    name: "{{ prometheus_alertmanager_service_name }}"
+    state: 'restarted'
