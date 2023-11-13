@@ -4,3 +4,12 @@
 prometheus_alertmanager_global:
   smtp_smarthost: 'localhost:25'
   smtp_from: 'alertmanager@example.org'
+
+prometheus_alertmanager_route:
+  receiver: 'team-X-mails'
+  group_by:
+    - 'alertname'
+    - 'cluster'
+  group_wait: '30s'
+  group_interval: '5m'
+  repeat_interval: '3h'
