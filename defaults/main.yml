@@ -13,6 +13,44 @@ prometheus_alertmanager_route:
   group_wait: '30s'
   group_interval: '5m'
   repeat_interval: '3h'
+  routes:
+    - type: 'match_re'
+      match_key: 'service'
+      match_value: '^(foo1|foo2|baz)$'
+      receiver: 'team-X-mails'
+      sub_routes:
+        - type: 'match'
+          match_key: 'severity'
+          match_value: 'critical'
+          receiver: 'team-X-pager'
+
+    - type: 'match'
+      match_key: 'service'
+      match_value: 'files'
+      receiver: 'team-Y-mails'
+      sub_routes:
+        - type: 'match'
+          match_key: 'severity'
+          match_value: 'critical'
+          receiver: 'team-Y-pager'
+
+    - type: 'match'
+      match_key: 'service'
+      match_value: 'database'
+      receiver: 'team-DB-pager'
+      group_by:
+        - 'alertname'
+        - 'cluster'
+        - 'database'
+      sub_routes:
+        - type: 'match'
+          match_key: 'owner'
+          match_value: 'team-X'
+          receiver: 'team-X-pager'
+        - type: 'match'
+          match_key: 'owner'
+          match_value: 'team-Y'
+          receiver: 'team-Y-pager'
 
 prometheus_alertmanager_inhibit_rules:
   - source_match: 'critical'
