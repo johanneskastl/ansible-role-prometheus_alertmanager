@@ -1,0 +1,20 @@
+---
+# prometheus_alertmanager/tasks/package_name.yml
+
+- name: 'Set package name on openSUSE/SUSE'
+  ansible.builtin.set_fact:
+    prometheus_alertmanager_package_name: 'golang-github-prometheus-alertmanager'
+  when:
+    - 'ansible_os_family == "Suse"'
+
+- name: 'Set package name on openSUSE MicroOS'
+  ansible.builtin.set_fact:
+    prometheus_alertmanager_package_name: 'golang-github-prometheus-alertmanager'
+  when:
+    - 'ansible_os_family == "openSUSE MicroOS"'
+
+- name: 'Set package name on openSUSE Leap Micro'
+  ansible.builtin.set_fact:
+    prometheus_alertmanager_package_name: 'golang-github-prometheus-alertmanager'
+  when:
+    - 'ansible_os_family == "openSUSE Leap Micro"'
