@@ -1,0 +1,6 @@
+---
+# prometheus_alertmanager/defaults/main.yml
+
+prometheus_alertmanager_global:
+  smtp_smarthost: 'localhost:25'
+  smtp_from: 'alertmanager@example.org'
