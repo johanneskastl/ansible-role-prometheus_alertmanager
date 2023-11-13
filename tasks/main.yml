@@ -12,6 +12,16 @@
     name: "{{ prometheus_alertmanager_package_name }}"
     state: 'present'
 
+- name: 'Create the configuration file'
+  ansible.builtin.template:
+    src: 'alertmanager.yml.j2'
+    dest: '/etc/prometheus/alertmanager.yml'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify:
+    - 'Restart the Alertmanager service'
+
 - name: 'Start and enable the service'
   ansible.builtin.service:
     name: "{{ prometheus_alertmanager_service_name }}"
