@@ -88,21 +88,25 @@ route:
             owner: team-Y
           receiver: team-Y-pager
 
+{% if prometheus_alertmanager_inhibit_rules is defined %}
 # Inhibition rules allow to mute a set of alerts given that another alert is
 # firing.
 # We use this to mute any warning-level notifications if the same alert is
 # already critical.
 inhibit_rules:
+{% for rule in prometheus_alertmanager_inhibit_rules %}
   - source_match:
-      severity: "critical"
+      severity: "{{ rule['source_match'] }}"
     target_match:
-      severity: "warning"
+      severity: "{{ rule['target_match'] }}"
     # Apply inhibition if the alertname is the same.
     # CAUTION:
     #   If all label names listed in `equal` are missing
     #   from both the source and target alerts,
     #   the inhibition rule will apply!
-    equal: ["alertname"]
+    equal: ["{{ rule['equal'] | join('", "') }}"]
+{% endfor %}
+{% endif %}
 
 receivers:
 {% for receiver in prometheus_alertmanager_receivers %}
