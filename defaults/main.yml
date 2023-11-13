@@ -13,3 +13,35 @@ prometheus_alertmanager_route:
   group_wait: '30s'
   group_interval: '5m'
   repeat_interval: '3h'
+
+prometheus_alertmanager_receivers:
+  - name: 'team-X-mails'
+    email_configs:
+      - type: 'to'
+        entries:
+          - 'team-X+alerts@example.org'
+          - 'team-Y+alerts@example.org'
+  - name: 'team-X-pager'
+    email_configs:
+      - type: 'to'
+        entries:
+          - 'team-X+alerts-critical@example.org'
+    pagerduty_configs:
+      - type: 'routing_key'
+        entries:
+          - '<team-X-key>'
+  - name: 'team-Y-mails'
+    email_configs:
+      - type: 'to'
+        entries:
+          - 'team-Y+alerts@example.org'
+  - name: 'team-Y-pager'
+    pagerduty_configs:
+      - type: 'routing_key'
+        entries:
+          - '<team-Y-key>'
+  - name: 'team-DB-pager'
+    pagerduty_configs:
+      - type: 'routing_key'
+        entries:
+          - '<team-DB-key>'
