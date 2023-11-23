@@ -18,3 +18,9 @@
     prometheus_alertmanager_service_name: 'prometheus-alertmanager.service'
   when:
     - 'ansible_os_family == "openSUSE Leap Micro"'
+
+- name: 'Set service name on Debian'
+  ansible.builtin.set_fact:
+    prometheus_alertmanager_service_name: 'prometheus-alertmanager'
+  when:
+    - 'ansible_distribution == "Debian"'
