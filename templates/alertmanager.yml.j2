@@ -21,6 +21,9 @@ global:
 {% if prometheus_alertmanager_global['smtp_auth_password_file'] is defined %}
   smtp_auth_password_file: "{{ prometheus_alertmanager_global['smtp_auth_password_file'] }}"
 {% endif %}
+{% if prometheus_alertmanager_global['smtp_auth_identity'] is defined %}
+  smtp_auth_identity: "{{ prometheus_alertmanager_global['smtp_auth_identity'] }}"
+{% endif %}
 
 # The root route on which each incoming alert enters.
 route:
