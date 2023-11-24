@@ -15,6 +15,9 @@ global:
 {% if prometheus_alertmanager_global['smtp_auth_password'] is defined %}
   smtp_auth_password: "{{ prometheus_alertmanager_global['smtp_auth_password'] }}"
 {% endif %}
+{% if prometheus_alertmanager_global['smtp_hello'] is defined %}
+  smtp_hello: "{{ prometheus_alertmanager_global['smtp_hello'] }}"
+{% endif %}
 {% if prometheus_alertmanager_global['smtp_auth_password_file'] is defined %}
   smtp_auth_password_file: "{{ prometheus_alertmanager_global['smtp_auth_password_file'] }}"
 {% endif %}
