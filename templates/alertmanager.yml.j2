@@ -106,6 +106,24 @@ route:
 
 {% endfor %}
 {% endif %}
+{% if prometheus_alertmanager_time_intervals is defined %}
+time_intervals:
+{% for interval in prometheus_alertmanager_time_intervals %}
+  - name: {{ interval['name'] }}
+    time_intervals:
+{% if interval['times'] is defined %}
+      - times:
+{% for time in interval['times'] %}
+        - start_time: '{{ time["start_time"] }}'
+          end_time: '{{ time["end_time"] }}'
+{% endfor %}
+{% endif %}
+{% if interval['weekdays'] is defined %}
+        weekdays: {{ interval['weekdays'] }}
+{% endif %}
+{% endfor %}
+
+{% endif %}
 {% if prometheus_alertmanager_inhibit_rules is defined %}
 # Inhibition rules allow to mute a set of alerts given that another alert is
 # firing.
