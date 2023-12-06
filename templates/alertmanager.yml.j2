@@ -79,6 +79,18 @@ route:
       receiver: {{ child_route['receiver'] }}
 {% endif %}
 {% endif %}
+{% if child_route['mute_time_intervals'] is defined %}
+      mute_time_intervals:
+{% for interval in child_route['mute_time_intervals'] %}
+        - {{ interval }}
+{% endfor %}
+{% endif %}
+{% if child_route['active_time_intervals'] is defined %}
+      active_time_intervals:
+{% for interval in child_route['active_time_intervals'] %}
+        - {{ interval }}
+{% endfor %}
+{% endif %}
 {% if child_route['group_by'] is defined %}
       group_by: [{{ child_route['group_by'] | join(', ')}}]
 {% endif %}
