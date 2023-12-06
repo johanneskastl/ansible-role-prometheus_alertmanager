@@ -68,10 +68,16 @@ route:
   # The child route trees.
   routes:
 {% for child_route in prometheus_alertmanager_route['routes'] %}
+{% if child_route['type'] is defined %}
     - {{ child_route['type'] }}:
         {{ child_route['match_key'] }}: {{ child_route['match_value'] }}
+{% endif %}
 {% if child_route['receiver'] is defined %}
+{% if child_route['type'] is undefined %}
+    - receiver: {{ child_route['receiver'] }}
+{% else%}
       receiver: {{ child_route['receiver'] }}
+{% endif %}
 {% endif %}
 {% if child_route['group_by'] is defined %}
       group_by: [{{ child_route['group_by'] | join(', ')}}]
