@@ -121,6 +121,11 @@ time_intervals:
 {% if interval['weekdays'] is defined %}
         weekdays: {{ interval['weekdays'] }}
 {% endif %}
+{% if interval['location'] is defined %}
+        location: {{ interval['location'] }}
+{% else %}
+        location: 'UTC'
+{% endif %}
 {% endfor %}
 
 {% endif %}
